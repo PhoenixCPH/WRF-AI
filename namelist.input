@@ -1,0 +1,212 @@
+&time_control
+ run_days                            = 16,
+ run_hours                           = 0,
+ run_minutes                         = 0,
+ run_seconds                         = 0,
+ start_year                          = 2015,   2015
+ start_month                         = 03, 03
+ start_day                           = 01, 01 !, 20, 20
+ start_hour                          = 00,   00
+ end_year                            = 2015,   2015
+ end_month                           = 04,   04
+ end_day                             = 17,   17 !, 10, 10
+ end_hour                            = 00,   00
+ interval_seconds                    = 10800, !21600,
+ input_from_file                     = .true.,.true.
+ history_interval                    = 1,1    ! INTERVAL FOR WRITING OUTPUT .NC FILES
+ frames_per_outfile                  = 12,12
+ restart                             = .false.,
+ restart_interval                    = 1440, !1440,
+ io_form_history                     = 2,
+ io_form_restart                     = 2,
+ io_form_input                       = 2, ! CHARLES HE
+ io_form_boundary                    = 2,
+ io_form_auxinput5       	     = 2,
+ io_form_auxinput6       	     = 2,	     
+ io_form_auxinput12       	     = 2,	     
+ debug_level                         = 0, !300,
+ write_hist_at_0h_rst 		     = .true.,
+ auxinput12_inname                   = 'wrfinput',
+ auxinput1_inname                    = "./inputs/in.MET/met_em.d<domain>.<date>",
+ auxinput5_inname                    = "./inputs/in.EMISS/wrfchemi_d<domain>_<date>",
+ auxinput5_interval_m 		     = 60,
+ frames_per_auxinput5     	     = 1,
+ frames_per_outfile = 720
+ io_form_auxinput7                   = 2,
+ frames_per_auxinput7                = 1,1
+ auxinput7_inname                    = "./inputs/in.EMISS-FIRE/wrffirechemi_d<domain>_<date>"
+ auxinput7_interval_m                = 60,60
+ force_use_old_data                  = .true.,
+/
+
+ &domains
+ eta_levels = 1.000,0.995,0.989,0.982,0.974,0.966,
+              0.958,0.950,0.941,0.931,0.921,0.910,
+              0.899,0.885,0.870,0.851,0.832,0.813,
+              0.793,0.773,0.750,0.719,0.672,0.622,
+              0.571,0.520,0.467,0.417,0.370,0.328,
+              0.288,0.252,0.220,0.189,0.162,0.137,
+              0.114,0.094,0.076,0.061,0.047,0.035,
+              0.025,0.015,0.007,0.000
+
+
+
+
+ time_step                           = 60, 
+ time_step_fract_num                 = 0,
+ time_step_fract_den                 = 1,
+ max_dom                             = 1,
+ e_we                                = 65, 220 !120,220
+ e_sn                                = 65, 214 !!120,214
+ e_vert                              = 46,46 !67,67
+ p_top_requested                     = 5000,  ! Not sure about this
+ num_metgrid_levels                  = 27 !32 !34 !38,    ! THIS COMES FROM WPS.
+ num_metgrid_soil_levels             = 4,     ! THIS COMES FROM WPS.
+ dx                                  = 50000,2000 !27000,2000
+ dy                                  = 50000,2000 !27000,2000
+ grid_id                             = 1,2
+ parent_id                           = 1,1
+ i_parent_start                      = 1,53
+ j_parent_start                      = 1,25
+ parent_grid_ratio                   = 1,3
+ parent_time_step_ratio              = 1,6 !10 !6
+ feedback                            = 0,
+ smooth_option                       = 0
+ /
+
+ &physics
+ num_land_cat                        = 21,
+ mp_physics                          = 10,10  ! MICROPHYSICS SCHEME
+ progn                               = 1,1
+ ra_lw_physics                       = 4,4    ! LONG-WAVE RADIATION
+ ra_sw_physics                       = 4,4    ! SHORT-WAVE RADIATION
+ radt                                = 10,10  ! MINUTES BETWEEN RADIATION CALLS
+ cam_abs_freq_s                      = 21600,
+ levsiz                              = 59,
+ paerlev                             = 29,
+ cam_abs_dim1                        = 4,
+ cam_abs_dim2                        = 67,
+ sf_sfclay_physics                   = 1,1   ! SURFACE LAYER OPTION
+ sf_surface_physics                  = 5,5 !4,4   ! LAND-SURFACE OPTION
+ bl_pbl_physics                      = 1,1 !YSU scheme
+ megan_factors_file                  = './inputs/in.EMISS-BIO/megan21_emis_factors_c20130304.nc'
+ input_pft                           = .false.,
+ bldt                                = 0,0
+ cu_physics                          = 5,5 !Possibly use 3 or 5 ! CUMULUS CLOUD OPTION
+ cugd_avedx                          = 1   ! NUMBER OF GRID BOXES OVER WHICH SUBSIDENCE IS SPREAD
+ cudt                                = 5,5
+ ishallow                            = 0,  ! SWITCH FOR SHALLOW CONVECTION
+ isfflx                              = 1,  ! HEAT AND MOISTURE FLUX FROM SURFACE
+ ifsnow                              = 1,  ! SNOWCOVER EFFECTS
+ icloud                              = 1,  ! CLOUD EFFECTS ON RADIATION
+ surface_input_source                = 1,
+ num_soil_layers                     = 10,
+ sf_urban_physics                    = 0,0  ! URBAN CANOPY MODEL 
+ mp_zero_out                         = 2,
+ mp_zero_out_thresh                  = 1.e-10,
+ maxiens                             = 1,
+ maxens                              = 3,
+ maxens2                             = 3,
+ maxens3                             = 16,
+ ensdim                              = 144,
+ cu_rad_feedback                     = .false.,.false.
+ cu_diag                             = 0,0
+ /
+
+ &fdda
+ /
+
+ &dfi_control ! STANDS FOR DIGITAL FILTER
+/
+
+ &grib2
+ /
+
+ &dynamics
+ rk_ord				     = 3   ! RUNGE-KUTTA ORDER FOR INTEGRATION
+ w_damping                           = 1,   ! VERTICAL VELOCITY DAMPING
+ diff_opt                            = 1,1  ! TURBULENCE AND MIXING OPTION   
+ km_opt                              = 4,4   ! EDDY COEFFICIENT OPTION   
+ diff_6th_opt                        = 0,0      
+ diff_6th_factor                     = 0.12,0.12 !Not sure  
+ use_theta_m                         = 0,
+ hybrid_opt                          = 0,
+ base_temp                           = 290.  ! BASE SEA-LEVEL TEMPERATURE
+ damp_opt                            = 0,
+ zdamp                               = 5000.,5000. ! DAMPING DEPTH FROM MODEL TOP
+ dampcoef                            = 0.2,0.2    
+ khdif                               = 0,0      ! HORIZONTAL DIFFUSION COEFFICIENT
+ kvdif                               = 0,0      ! VERTICAL DIFFUSION COEFFICIENT
+ non_hydrostatic                     = .true.,.true. 
+ time_step_sound                     = 4,4
+ h_mom_adv_order                     = 5,5 ! HORIZONTAL MOMENTUM ADVECTION ORDER
+ v_mom_adv_order                     = 3,3 ! VERTICAL MOMENTUM ADVECTION ORDER
+ h_sca_adv_order                     = 5,5 ! HORIZONTAL SCALAR ADVECTION ORDER
+ v_sca_adv_order                     = 3,3 ! VERTICAL SCALAR ADVECTION ORDER
+ moist_adv_opt                       = 2,2     
+ scalar_adv_opt                      = 2,2
+ chem_adv_opt                        = 2,2
+ tke_adv_opt                         = 2,2
+ /
+
+ &bdy_control
+ spec_bdy_width                      = 5,
+ spec_zone                           = 1,
+ relax_zone                          = 4,	
+ specified                           = .true.,.false.
+ nested                              = .false.,.true.
+ /
+
+ &namelist_quilt
+ nio_tasks_per_group = 0,
+ nio_groups = 1,
+ /
+
+ &chem
+ input_chem_inname		     = "wrfchemi.d<domain>.<date>"
+ kemit                               = 8,
+ chem_in_opt                         = 1,1	
+ chem_opt                            = 210,210
+ bioemdt                             = 0.5,0.08333 ! THIS VALUE DOES NOT SEEM TO MATTER IN THE CODE.
+ photdt                              = 15.,15.
+ chemdt                              = 5.,5.
+ emiss_inpt_opt                      = 102,102
+ io_style_emissions                  = 2,
+ phot_opt                            = 2,2
+ gas_drydep_opt                      = 1,1
+ aer_drydep_opt                      = 311,311
+ aer_aerodynres_opt                  = 1,1
+ bio_emiss_opt                       = 3,3
+ biomass_burn_opt                    = 6,6
+ plumerisefire_frq                   = 60,
+ emiss_opt                           = 13,13
+ dmsemis_opt			     = 1,
+ ne_area                             = 3000, !10000, !! THIS FOR BOTH DOMAINS??
+ dust_opt                            = 0
+ gas_bc_opt                          = 101,101
+ gas_ic_opt                          = 101,101
+ aer_bc_opt                          = 101,101
+ aer_ic_opt                          = 101,101
+ gaschem_onoff                       = 1,1
+ aerchem_onoff                       = 1,1
+ uq_aqsoa                            = 1,1
+ vertmix_onoff                       = 1,1
+ wetscav_onoff                       = 1,1
+ cldchem_onoff                       = 0,0 !1,1
+ aer_ra_feedback                     = 0,0 !1,1
+ aer_op_opt                          = 1,1
+ aero_diag_opt                       = 0,0 !1,1
+ aero_cw_diag_opt                    = 0,0 !1,1
+ diagnostic_chem                     = 0,0 !2,2 
+ chem_conv_tr                        = 0,0 !1,0  ! CONVECTIVE TRANSPORT
+ conv_tr_wetscav                     = 0,0 !1,0  ! WET SCAVENGING
+ have_bcs_chem                       = .true.,
+ have_bcs_tracer 		     = .true., 	     
+! diffb                               = 1e-20 !1e-21 !1e-10 !1e-19
+! kfOLIG                              = 0.0 ! 1e-24
+! krOLIG                              = 0.0 ! 1.6e-2
+! gammaOH                             = 1.0
+! pHETFRAG                            = 0.5
+ mKINETIC                             = 1
+
+/
